@@ -113,13 +113,13 @@ public class Main extends Plugin {
                 conquer, with(beryllium, 250, graphite, 225, silicon, 125, tungsten, 140, oxide, 120, carbide, 240, surgeAlloy, 250, thorium, 240, phaseFabric, 120),
 
                 elude, with(beryllium, 6, graphite, 25, silicon, 35),
-                avert, with(beryllium, 24, graphite, 50, silicon, 30, tungsten, 20),
+                avert, with(beryllium, 24, graphite, 50, silicon, 30, tungsten, 20, oxide, 20),
                 obviate, with(beryllium, 48, graphite, 75, silicon, 50, tungsten, 45, carbide, 50, thorium, 40, phaseFabric, 75),
                 quell, with(beryllium, 96, graphite, 100, silicon, 140, tungsten, 70, oxide, 60, carbide, 75, surgeAlloy, 60, thorium, 100, phaseFabric, 125),
                 disrupt, with(beryllium, 122, graphite, 125, silicon, 155, tungsten, 100, oxide, 120, carbide, 240, surgeAlloy, 120, thorium, 240, phaseFabric, 250),
 
                 merui, with(beryllium, 25, silicon, 35, tungsten, 10),
-                cleroi, with(beryllium, 35, graphite, 20, silicon, 25, tungsten, 20),
+                cleroi, with(beryllium, 35, graphite, 20, silicon, 25, tungsten, 20, oxide, 20),
                 anthicus, with(beryllium, 50, graphite, 25, silicon, 50, tungsten, 65, oxide, 75, thorium, 40),
                 tecta, with(beryllium, 100, graphite, 50, silicon, 140, tungsten, 120, oxide, 125, surgeAlloy, 60, thorium, 100, phaseFabric, 125),
                 collaris, with(beryllium, 135, graphite, 90, silicon, 175, tungsten, 155, oxide, 250, carbide, 240, surgeAlloy, 120, thorium, 240, phaseFabric, 120),
