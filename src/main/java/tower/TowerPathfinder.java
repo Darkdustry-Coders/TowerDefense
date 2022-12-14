@@ -9,7 +9,7 @@ import static tower.Main.isPath;
 
 public class TowerPathfinder extends Pathfinder {
 
-    public static final int impassable = -1, notPath = 100000;
+    public static final int impassable = -1, notPath = 999999;
 
     public static void load() {
         pathfinder = new TowerPathfinder();
