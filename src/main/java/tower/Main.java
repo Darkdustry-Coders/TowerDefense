@@ -94,13 +94,13 @@ public class Main extends Plugin {
                 UnitTypes.conquer, ItemStack.list(Items.beryllium, 250, Items.graphite, 225, Items.silicon, 125, Items.tungsten, 140, Items.oxide, 120, Items.carbide, 240, Items.surgeAlloy, 250, Items.thorium, 240, Items.phaseFabric, 120),
 
                 UnitTypes.elude, ItemStack.list(Items.beryllium, 6, Items.graphite, 25, Items.silicon, 35),
-                UnitTypes.avert, ItemStack.list(Items.beryllium, 24, Items.graphite, 50, Items.silicon, 30, Items.tungsten, 20),
+                UnitTypes.avert, ItemStack.list(Items.beryllium, 24, Items.graphite, 50, Items.silicon, 30, Items.tungsten, 20, Items.oxide, 20),
                 UnitTypes.obviate, ItemStack.list(Items.beryllium, 48, Items.graphite, 75, Items.silicon, 50, Items.tungsten, 45, Items.carbide, 50, Items.thorium, 40, Items.phaseFabric, 75),
                 UnitTypes.quell, ItemStack.list(Items.beryllium, 96, Items.graphite, 100, Items.silicon, 140, Items.tungsten, 70, Items.oxide, 60, Items.carbide, 75, Items.surgeAlloy, 60, Items.thorium, 100, Items.phaseFabric, 125),
                 UnitTypes.disrupt, ItemStack.list(Items.beryllium, 122, Items.graphite, 125, Items.silicon, 155, Items.tungsten, 100, Items.oxide, 120, Items.carbide, 240, Items.surgeAlloy, 120, Items.thorium, 240, Items.phaseFabric, 250),
 
                 UnitTypes.merui, ItemStack.list(Items.beryllium, 25, Items.silicon, 35, Items.tungsten, 10),
-                UnitTypes.cleroi, ItemStack.list(Items.beryllium, 35, Items.graphite, 20, Items.silicon, 25, Items.tungsten, 20),
+                UnitTypes.cleroi, ItemStack.list(Items.beryllium, 35, Items.graphite, 20, Items.silicon, 25, Items.tungsten, 20, Items.oxide, 20),
                 UnitTypes.anthicus, ItemStack.list(Items.beryllium, 50, Items.graphite, 25, Items.silicon, 50, Items.tungsten, 65, Items.oxide, 75, Items.thorium, 40),
                 UnitTypes.tecta, ItemStack.list(Items.beryllium, 100, Items.graphite, 50, Items.silicon, 140, Items.tungsten, 120, Items.oxide, 125, Items.surgeAlloy, 60, Items.thorium, 100, Items.phaseFabric, 125),
                 UnitTypes.collaris, ItemStack.list(Items.beryllium, 135, Items.graphite, 90, Items.silicon, 175, Items.tungsten, 155, Items.oxide, 250, Items.carbide, 240, Items.surgeAlloy, 120, Items.thorium, 240, Items.phaseFabric, 120),
@@ -115,7 +115,7 @@ public class Main extends Plugin {
             type.payloadCapacity = type.legSplashDamage = type.range = type.maxRange = type.mineRange = 0f;
 
             type.aiController = type.flying ? FlyingAI::new : GroundAI::new;
-            type.targetFlags = new BlockFlag[]{BlockFlag.core};
+            type.targetFlags = new BlockFlag[] {BlockFlag.core};
         });
 
         netServer.admins.addActionFilter(action -> {
