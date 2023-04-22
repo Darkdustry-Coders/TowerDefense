@@ -18,6 +18,7 @@ import mindustry.world.blocks.defense.ShockMine;
 import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.blocks.units.UnitBlock;
 import mindustry.world.meta.BlockFlag;
+import useful.Bundle;
 
 import static mindustry.Vars.*;
 
@@ -40,6 +41,9 @@ public class Main extends Plugin {
 
     @Override
     public void init() {
+        Bundle.load(Main.class);
+        TowerPathfinder.load();
+
         drops = ObjectMap.of(
                 UnitTypes.crawler, ItemStack.list(Items.copper, 20, Items.lead, 10, Items.silicon, 3),
                 UnitTypes.atrax, ItemStack.list(Items.copper, 30, Items.lead, 40, Items.graphite, 10, Items.titanium, 5),
@@ -123,29 +127,28 @@ public class Main extends Plugin {
 
             if (action.type == ActionType.placeBlock || action.type == ActionType.breakBlock) {
                 if (!(canBePlaced(action.tile, action.block) || action.block instanceof ShockMine || action.block instanceof CoreBlock)) {
-                    Call.label(action.player.con, "[scarlet]\uE868", 4f, action.tile.drawx(), action.tile.drawy());
+                    Bundle.label(action.player, 4f, action.tile.drawx(), action.tile.drawy(), "ui.forbidden");
                     return false;
                 }
             }
 
             if ((action.type == ActionType.depositItem || action.type == ActionType.withdrawItem) && action.tile.block() instanceof CoreBlock) {
-                Call.label(action.player.con, "[scarlet]\uE868", 4f, action.tile.drawx(), action.tile.drawy());
+                Bundle.label(action.player, 4f, action.tile.drawx(), action.tile.drawy(), "ui.forbidden");
                 return false;
             }
 
             return true;
         });
 
-        // Change pathfinder to my own implementation
-        pathfinder = new TowerPathfinder();
-
         Timer.schedule(() -> state.rules.waveTeam.data().units.each(unit -> {
             var core = unit.closestEnemyCore();
-            if (core == null || unit.dst(core) > 64f) return;
+            if (core == null || unit.dst(core) > 80f) return;
 
             core.damage(unit.health / Mathf.sqrt(multiplier), true);
             unit.kill();
         }), 0f, 1f);
+
+        Timer.schedule(() -> Bundle.popup(1f, 20, 50, 20, 450, 0, "ui.multiplier", Color.HSVtoRGB(multiplier * 120f, 100f, 100f), Strings.autoFixed(multiplier, 2)), 0f, 1f);
 
         Events.on(WorldLoadEvent.class, event -> multiplier = 1f);
         Events.on(WaveEvent.class, event -> multiplier = Mathf.clamp(((state.wave * state.wave / 3200f) + 0.5f), multiplier, 100f));
@@ -158,7 +161,7 @@ public class Main extends Plugin {
         Events.on(UnitDestroyEvent.class, event -> {
             if (event.unit.team != state.rules.waveTeam) return;
 
-            var core = state.rules.defaultTeam.core();
+            var core = event.unit.closestEnemyCore();
             var drop = drops.get(event.unit.type);
 
             if (core == null || drop == null) return;
@@ -184,7 +187,5 @@ public class Main extends Plugin {
             event.unit.damageMultiplier(0f);
             event.unit.apply(StatusEffects.disarmed, Float.POSITIVE_INFINITY);
         });
-
-        Timer.schedule(() -> Groups.player.each(player -> Call.infoPopup(player.con, Strings.format("[yellow]\uE86D[accent] Units health multiplier: [#@]@x", Color.HSVtoRGB(multiplier * 120f, 100f, 100f).toString(), Strings.autoFixed(multiplier, 2)), 6f, 20, 50, 20, 450, 0)), 0f, 6f);
     }
 }
