@@ -4,16 +4,13 @@ import mindustry.ai.Pathfinder;
 import mindustry.gen.PathTile;
 import mindustry.world.Tile;
 
-import static mindustry.Vars.pathfinder;
-import static tower.Main.isPath;
+import static tower.Main.*;
 
 public class TowerPathfinder extends Pathfinder {
 
     public static final int impassable = -1;
 
-    public static void load() {
-        pathfinder = new TowerPathfinder();
-
+    public TowerPathfinder() {
         costTypes.set(costGround, (team, tile) -> (PathTile.allDeep(tile) || ((PathTile.team(tile) == 0 || PathTile.team(tile) == team) && PathTile.solid(tile))) ? impassable : 1 +
                 (PathTile.deep(tile) ? 6000 : 0) +
                 (PathTile.damages(tile) ? 50 : 0) +
