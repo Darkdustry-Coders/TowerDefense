@@ -51,7 +51,7 @@ public class TowerPathfinder extends Pathfinder {
         }
 
         return PathTile.get(
-                0, // Health doesn't matter
+                0,
                 tile.getTeamID(),
                 tile.solid(),
                 tile.floor().isLiquid,
