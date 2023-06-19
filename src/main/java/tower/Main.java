@@ -7,9 +7,8 @@ import arc.struct.*;
 import arc.util.*;
 import mindustry.ai.types.*;
 import mindustry.content.*;
-import mindustry.ctype.MappableContent;
 import mindustry.game.EventType.*;
-import mindustry.gen.*;
+import mindustry.gen.Call;
 import mindustry.mod.Plugin;
 import mindustry.net.Administration.ActionType;
 import mindustry.type.*;
@@ -27,10 +26,6 @@ public class Main extends Plugin {
     public static ObjectMap<UnitType, Seq<ItemStack>> drops;
     public static float multiplier = 1f;
 
-    public static char getIcon(MappableContent content) {
-        return Reflect.get(Iconc.class, Strings.kebabToCamel(content.getContentType().name() + "-" + content.name));
-    }
-
     public static boolean isPath(Tile tile) {
         return tile.floor() == Blocks.darkPanel4 || tile.floor() == Blocks.darkPanel5;
     }
@@ -41,7 +36,7 @@ public class Main extends Plugin {
 
     @Override
     public void init() {
-        Bundle.load(Main.class);
+        Bundle.load(getClass());
         TowerPathfinder.load();
 
         drops = ObjectMap.of(
@@ -119,7 +114,7 @@ public class Main extends Plugin {
             type.payloadCapacity = type.legSplashDamage = type.range = type.maxRange = type.mineRange = 0f;
 
             type.aiController = type.flying ? FlyingAI::new : GroundAI::new;
-            type.targetFlags = new BlockFlag[] {BlockFlag.core};
+            type.targetFlags = new BlockFlag[]{BlockFlag.core};
         });
 
         netServer.admins.addActionFilter(action -> {
@@ -171,7 +166,7 @@ public class Main extends Plugin {
             drop.each(stack -> {
                 int amount = Mathf.random(stack.amount - stack.amount / 2, stack.amount + stack.amount / 2);
 
-                builder.append("[accent]+").append(amount).append(" [white]").append(getIcon(stack.item)).append("  ");
+                builder.append("[accent]+").append(amount).append(" [white]").append(stack.item.emoji()).append("  ");
                 Call.transferItemTo(event.unit, stack.item, core.acceptStack(stack.item, amount, core), event.unit.x, event.unit.y, core);
             });
 
