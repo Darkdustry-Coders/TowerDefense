@@ -1,6 +1,6 @@
 {
   "name": "tower-defense",
-  "minGameVersion": "145",
+  "minGameVersion": "145.1",
   "displayName": "Tower Defense",
   "author": "Darkness6030",
   "description": "Defend your tower!",
