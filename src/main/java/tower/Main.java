@@ -149,8 +149,15 @@ public class Main extends Plugin {
         Events.on(WaveEvent.class, event -> multiplier = Mathf.clamp(((state.wave * state.wave / 3200f) + 0.5f), multiplier, 100f));
 
         Events.on(PlayEvent.class, event -> {
-            state.rules.bannedBlocks.addAll(content.blocks().select(block -> block instanceof UnitBlock));
-            state.rules.defaultTeam.rules().buildSpeedMultiplier = 2f;
+            state.rules.bannedBlocks.addAll(content.blocks().select(UnitBlock.class::isInstance));
+            state.rules.bannedBlocks.remove(Blocks.airFactory);
+            state.rules.bannedBlocks.remove(Blocks.additiveReconstructor);
+            state.rules.bannedBlocks.remove(Blocks.multiplicativeReconstructor);
+
+            state.rules.bannedUnits.addAll(content.units().select(type -> !type.hidden));
+            state.rules.bannedUnits.remove(UnitTypes.mono);
+            state.rules.bannedUnits.remove(UnitTypes.poly);
+            state.rules.bannedUnits.remove(UnitTypes.mega);
         });
 
         Events.on(UnitDestroyEvent.class, event -> {
