@@ -6,6 +6,7 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven{ url "https://raw.githubusercontent.com/Zelaux/MindustryRepo/master/repository" }
     maven(url = "https://jitpack.io")
 }
 
